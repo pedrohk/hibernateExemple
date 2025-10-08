@@ -22,6 +22,7 @@ public class PersonJpaDao {
     public Person find(Long id) {
         EntityManager em = JPAUtil.getEntityManager();
         Person p = em.find(Person.class, id);
+
         em.close();
         return p;
     }
@@ -32,6 +33,8 @@ public class PersonJpaDao {
         tx.begin();
 
         Person merged = em.merge(detached);
+        em.flush();
+
         tx.commit();
         em.close();
         return merged;

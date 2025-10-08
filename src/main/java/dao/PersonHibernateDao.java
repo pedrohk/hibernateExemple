@@ -29,6 +29,7 @@ public class PersonHibernateDao {
         Transaction tx = session.beginTransaction();
 
         Person managed = (Person) session.merge(detached);
+
         tx.commit();
         session.close();
         return managed;

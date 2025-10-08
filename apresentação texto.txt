@@ -1,0 +1,48 @@
+
+## Hibernate Deep Dive: Practical Usage & Comparison
+
+### 1. Practical Entity Mapping: Beyond the Basics
+
+Let's dive right into how we model our data using Hibernate. Choosing the right mapping is critical for both performance and domain clarity.
+
+* **@Entity Mapping:** This is your **core domain object** (e.g., `Customer`, `Order`). Use it when an object needs a persistent identity, requires **lifecycle management**, and benefits from Hibernate’s automatic **first and second-level caching**.
+* **@Embeddable:** This is for **reusable value objects** without their own identity, like an `Address` or `AuditInfo`. Embedding these objects inside your entities keeps your domain model clean and follows object-oriented principles.
+* **Inheritance Strategies:** This choice impacts your schema and query performance.
+    * **SINGLE\_TABLE:** Best for **performance** as it avoids joins, but sacrifices normalization.
+    * **JOINED:** Best for a **normalized schema**, but requires joins, which can slow down queries.
+    * **TABLE\_PER\_CLASS:** Rarely used, but supports cleaner **polymorphic queries**.
+
+**When to Avoid ORM:** If you face complex reporting or performance-critical data retrieval, often the ORM is in the way. Use **Native SQL** or map results directly to **DTO Projections** to bypass the ORM overhead.
+
+***
+
+### 2. Query Strategy: JPA vs. Native
+
+The choice between query types is a trade-off between portability and raw power.
+
+#### JPA Queries (JPQL/HQL)
+* **When to Use:** **90% of the time!** Use it for standard CRUD, and object-oriented operations.
+* **Advantage:** They are **database-agnostic**, making your code portable, and they seamlessly integrate with Hibernate features like **caching** and **lazy loading**.
+
+#### Native SQL Queries
+* **When to Use:** When you must leverage a specific **database function** (e.g., a vendor-specific JSON query), when dealing with **complex, non-entity-based joins**, or for **bulk operations** (like large-scale updates) where object loading is inefficient.
+* **Mixing Approaches:** This is the practical reality. We use the **JPA `EntityManager`** for most of the application logic and only **fall back to native SQL** via `entityManager.createNativeQuery()` for those specific, performance-critical edge cases.
+
+***
+
+### 3. Hibernate Without JPA: The Native API
+
+While JPA is the standard, Hibernate offers a **native API** for deeper control.
+
+* **When to Use the Direct `Session` API (without JPA):** For specialized, performance-critical applications or legacy systems where you need **full control** over the session lifecycle and **advanced Hibernate features** like custom data types, multi-tenancy, or fine-grained second-level caching strategies **not exposed by the JPA spec**.
+* **Trade-Offs:** You gain power and flexibility, but your code is **less portable** and typically involves more **boilerplate**. For most new applications, the JPA abstraction is sufficient.
+
+***
+
+### 4. Comparison: Hibernate vs. The Field
+
+Finally, let's put Hibernate in perspective against similar Java Persistence APIs.
+
+**Bottom Line:** Hibernate’s strength lies in its **maturity** and **rich feature set**—caching, lazy loading, HQL—making it the champion for applications with **complex, object-oriented domain models**. Choose simpler tools like MyBatis or pure JDBC/Jooq only when you explicitly need **fine-grained SQL control** and can afford to lose the ORM automation.
+
+Thank you.
