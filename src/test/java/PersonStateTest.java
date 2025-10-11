@@ -111,9 +111,8 @@ public class PersonStateTest {
 
         Person p = new Person("Eve");
         Person savedJ = jDao.save(p);
-        Long id = savedJ.getId();
 
-        assertNotNull(id, "Saved person ID should not be null");
+        assertNotNull(savedJ.getId(), "Saved person ID should not be null");
 
 
         savedJ.setName("Eve via Hibernate");
@@ -122,9 +121,8 @@ public class PersonStateTest {
         assertNotNull(mergedH, "Merged person should not be null");
 
 
-        Person finalDb = jDao.find(id);
+        Person finalDb = jDao.find(savedJ.getId());
         assertNotNull(finalDb, "Final fetched person is null — likely not persisted or deleted");
-
         assertEquals("Eve via Hibernate", finalDb.getName());
     }
 }
