@@ -10,5 +10,6 @@ We use the JPA `EntityManager` for most of the application logic and we can use 
 The L1 cache is built into and tied to the lifecycle of a Session object. It improves performance by ensuring that the same entity is retrieved from memory rather than re-querying the database within a single session. 
 The L2 cache is optional and exists at the SessionFactory level, meaning it is shared across all sessions and transactions within an application. It is designed to cache frequently used data that persists beyond a single session's lifespan. 
 Hibernate also provides an optional query cache to store the results of frequently executed queries. 
-Hibernate packed with features like caching, lazy loading, and HQL, which makes it a solid pick for complex apps, object-heavy models. If you’re just looking to write tight SQL and don’t mind skipping the whole ORM automation, then lighter tools like MyBatis or plain JDBC/Jooq might be more your vibe.
+Hibernate packed with features like caching, lazy loading, and HQL, which makes it a solid pick for complex apps. 
+But if you’re just looking to write tight SQL and don’t mind skipping the whole ORM automation, then lighter tools like MyBatis or Jooq might be more your vibe.
  
