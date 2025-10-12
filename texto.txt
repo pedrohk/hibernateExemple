@@ -1,7 +1,7 @@
 Choosing the right mapping is critical for both performance and domain clarity
 To use Hibernate in a Java project, you typically need to include the hibernate-core dependency
-JPA API (if you're using Hibernate as a JPA provider)
 Database Driver
+JPA API (if you're using Hibernate as a JPA provider)
 Connection Pooling is recommended because hibernate doesn’t automatically pull in all optional modules, so if you need features like envers, validator, or search, you’ll need to add those dependencies
 Use HQL for standard CRUD, and object-oriented operations.
 Use Native SQL when you must a specific database function, when dealing with complex, non-entity-based joins, or for bulk operations where object loading is inefficient.
