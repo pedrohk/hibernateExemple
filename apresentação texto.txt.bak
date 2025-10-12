@@ -12,7 +12,7 @@ Let's dive right into how we model our data using Hibernate. Choosing the right 
      JOINED: Best for a normalized schema, but requires joins, which can slow down queries.
      TABLE PER CLASS: Rarely used, but supports cleaner polymorphic queries.
 
-When to Avoid ORM: If you face complex reporting or performance-critical data retrieval. Use Native SQL or map results directly to DTO Projections to bypass the ORM overhead.
+When to Avoid ORM: If you face complex reporting or performance-critical data retrieval, often the ORM is in the way. Use Native SQL or map results directly to DTO Projections to bypass the ORM overhead.
 
 
 
@@ -25,7 +25,7 @@ The choice between query types is a trade-off between portability and raw power.
  Advantage: They are database-agnostic, making your code portable, and they seamlessly integrate with Hibernate features like caching and lazy loading.
 
 #### Native SQL Queries
- When to Use: When you must a specific database function (e.g., a vendor-specific JSON query), when dealing with complex, non-entity-based joins, or for bulk operations (like large-scale updates) where object loading is inefficient.
+ When to Use: When you must leverage a specific database function (e.g., a vendor-specific JSON query), when dealing with complex, non-entity-based joins, or for bulk operations (like large-scale updates) where object loading is inefficient.
  Mixing Approaches: This is the practical reality. We use the JPA `EntityManager` for most of the application logic and only fall back to native SQL via `entityManager.createNativeQuery()` for those specific, performance-critical edge cases.
 
 
